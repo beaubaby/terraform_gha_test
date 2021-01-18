@@ -1,6 +1,6 @@
 provider "aws" {
   profile = "default"
-  region  = "us-west-1"
+  region  = "ap-southeast-1"
 }
 
 resource "aws_key_pair" "ubuntu" {
