@@ -1,0 +1,27 @@
+---
+name: 'Build TF_TEST'
+on:
+  pull_request:
+    paths:
+      - 'pomelo/**'
+jobs:
+  acm:
+    name: 'Build TF_TEST'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+      - name: 'Terraform Format'
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.12.24
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Terraform init
+        id: init
+        run: terraform init
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
