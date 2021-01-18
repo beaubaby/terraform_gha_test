@@ -2,8 +2,11 @@
 name: 'Build TF_TEST'
 on:
   pull_request:
-    paths:
-      - 'pomelo/**'
+    branches:
+      - main
+  push:
+    branches:
+      - main
 jobs:
   acm:
     name: 'Build TF_TEST'
