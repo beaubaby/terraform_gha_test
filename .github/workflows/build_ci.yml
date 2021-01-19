@@ -7,10 +7,14 @@ on:
   push:
     branches:
       - main
+defaults:
+  run:
+    working-directory: 'pomelo/**'
 jobs:
   acm:
     name: 'Build TF_TEST'
     runs-on: ubuntu-latest
+
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v2
