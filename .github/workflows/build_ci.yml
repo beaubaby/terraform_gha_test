@@ -21,15 +21,17 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 0.12.24
-          tf_actions_working_dir: '/pomelo/*'
 
       - name: Terraform fmt
         id: fmt
         run: terraform fmt -check
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          tf_actions_working_dir: '/pomelo/*'
+
       - name: Terraform init
         id: init
         run: terraform init
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          tf_actions_working_dir: '/pomelo/*'
