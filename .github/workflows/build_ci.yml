@@ -14,7 +14,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: 'pomelo/**/ap-southeast-1'
+        working-directory: 'pomelo/aws/ap-southeast-1'
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v2
@@ -28,11 +28,11 @@ jobs:
         run: terraform fmt -check
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          tf_actions_working_dir: 'pomelo/**/ap-southeast-1'
+          tf_actions_working_dir: 'pomelo/aws/ap-southeast-1'
 
       - name: Terraform init
         id: init
         run: terraform init
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          tf_actions_working_dir: 'pomelo/**/ap-southeast-1'
+          tf_actions_working_dir: 'pomelo/aws/ap-southeast-1'
