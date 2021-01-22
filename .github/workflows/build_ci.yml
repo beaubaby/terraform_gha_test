@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v2
-      - name: 'Setup Format'
+      - name: 'Setup Terraform'
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 0.12.24
@@ -27,13 +27,13 @@ jobs:
 
       - name: Terraform version
         run: terraform --version
-      
-      - name: env
-        run: env
 
       - name: Terraform fmt
         id: fmt
         run: terraform fmt -check
+        with: 
+          cli_config_credentials_token: ${{ secrets.cli_config_credentials_token }}
+          terraform_wrapper: true
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
