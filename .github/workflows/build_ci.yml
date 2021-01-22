@@ -31,9 +31,6 @@ jobs:
       - name: Terraform fmt
         id: fmt
         run: terraform fmt -check
-        with: 
-          cli_config_credentials_token: ${{ secrets.cli_config_credentials_token }}
-          terraform_wrapper: true
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
