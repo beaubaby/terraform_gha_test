@@ -27,6 +27,13 @@ jobs:
 
       - name: Terraform fmt
         id: fmt
+        run: terraform --version
+      
+      - name: env
+        run: env
+
+      - name: Terraform fmt
+        id: fmt
         run: terraform fmt -check
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
