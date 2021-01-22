@@ -35,4 +35,4 @@ jobs:
         run: terraform init
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          # tf_actions_working_dir: 'pomelo/aws/ap-southeast-1'
+          tf_actions_working_dir: 'pomelo/aws/ap-southeast-1'
