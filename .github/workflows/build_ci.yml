@@ -26,7 +26,6 @@ jobs:
           terraform_wrapper: true
 
       - name: Terraform fmt
-        id: fmt
         run: terraform --version
       
       - name: env
