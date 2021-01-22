@@ -11,9 +11,9 @@ jobs:
   acm:
     name: 'Build TF_TEST'
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: 'pomelo/aws/ap-southeast-1'
+    # defaults:
+    #   run:
+    #     working-directory: 'pomelo/aws/ap-southeast-1'
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v2
@@ -28,7 +28,7 @@ jobs:
         run: terraform fmt -check
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          # tf_actions_working_dir: 'pomelo/aws/ap-southeast-1'
+          tf_actions_working_dir: 'pomelo/aws/ap-southeast-1'
 
       - name: Terraform init
         id: init
