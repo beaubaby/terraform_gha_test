@@ -1,15 +1,32 @@
-- name: 'Generate Dashboard'
-  uses: ethomson/issue-dashboard@v1
-  with:
-    config: |
-      title: 'Dashboard'
-      output:
-        format: html
-        filename: 'dashboard.html'
-      sections:
-      - title: 'Pull Requests'
-        widgets:
-        - type: 'table'
-          title: 'New Pull Requests (This Week)'
-          issue_query: 'beaubaby/terraform_gha_test is:open is:issue created:>{{ date("-7 days") }} sort:created-asc'
-    token: ${{ secret.GH_TOKEN }}
+---
+name: 'Build TF_TEST'
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+jobs:
+  acm:
+    name: 'Build dashboard'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'pomelo/aws/ap-southeast-1'
+    steps:
+      - name: 'Generate Dashboard'
+        uses: ethomson/issue-dashboard@v1
+        with:
+          config: |
+            title: 'Dashboard'
+            output:
+              format: html
+              filename: 'dashboard.html'
+            sections:
+            - title: 'Pull Requests'
+              widgets:
+              - type: 'table'
+              title: 'New Pull Requests (This Week)'
+              issue_query: 'repo:beaubaby/terraform_gha_test is:open is:issue created:>{{ date("-7 days") }} sort:created-asc'
+          token: ${{ secret.GH_TOKEN }}
