@@ -22,7 +22,7 @@ jobs:
             title: 'Dashboard'
             output:
               format: html
-              filename: 'dashboard.html'
+              filename: 'out/dashboard.html'
             sections:
             - title: 'Pull Requests'
               widgets:
@@ -30,3 +30,12 @@ jobs:
                 title: 'New Pull Requests (This Week)'
                 issue_query: 'repo:beaubaby/terraform_gha_test is:open is:issue created:>{{ date("-7 days") }} sort:created-asc'
           token: ${{ secrets.TOKEN }}
+
+      - name: Publish Documentation
+        run: |
+          git add .
+          git config user.name 'beaubaby'
+          git config user.email 'beau.ham4t@gmail.com'
+          git commit -m 'Documentation update' --allow-empty
+          git push origin main
+        working-directory: out
