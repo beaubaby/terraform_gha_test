@@ -29,4 +29,4 @@ jobs:
               - type: 'table'
               title: 'New Pull Requests (This Week)'
               issue_query: 'repo:beaubaby/terraform_gha_test is:open is:issue created:>{{ date("-7 days") }} sort:created-asc'
-          token: ${{ github.GH_TOKEN }}
+          token: ${{ secret.GH_TOKEN }}
