@@ -16,8 +16,8 @@ jobs:
         sudo chmod +x /usr/local/bin/yq
     - name: Generate
       run: |
-        ./generate.sh -o samples/gcp.md -i samples/repos \
-          -i https://raw.githubusercontent.com/arjun024/actions-dashboard/master/samples/repos
+        ./generate.sh -o samples/test.md -i samples/repos \
+          -i https://github.com/beaubaby/terraform_gha_test/blob/main/samples/repos
         if [ -z "$(git status -s -- samples/test.md)" ]; then
           echo No changes to commit
           exit 0
