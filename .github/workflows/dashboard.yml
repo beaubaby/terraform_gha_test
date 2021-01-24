@@ -1,8 +1,6 @@
 
 name: Check for workflows
-on:
-  schedule:
-  - cron: '* * * * *'
+on: push
 
 jobs:
   check:
