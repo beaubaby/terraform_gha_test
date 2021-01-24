@@ -27,6 +27,6 @@ jobs:
             - title: 'Pull Requests'
               widgets:
               - type: 'table'
-              title: 'New Pull Requests (This Week)'
-              issue_query: 'repo:beaubaby/terraform_gha_test is:open is:issue created:>{{ date("-7 days") }} sort:created-asc'
+                title: 'New Pull Requests (This Week)'
+                issue_query: 'repo:beaubaby/terraform_gha_test is:open is:issue created:>{{ date("-7 days") }} sort:created-asc'
           token: ${{ secrets.GH_TOKEN }}
