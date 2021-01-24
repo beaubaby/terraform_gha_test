@@ -1,42 +1,31 @@
----
-name: 'Build TF_TEST Dashboard'
 
+name: Check for workflows
 on:
-  pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
+  schedule:
+  - cron: '0 * * * *'
 
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
-
     steps:
-      - name: 'Checkout repo'
-        uses: actions/checkout@v2     
 
-      - name: 'Generate Dashboard'
-        uses: ethomson/issue-dashboard@v1
-        with:
-          config: |
-            title: 'Dashboard'
-            output:
-              format: html
-              filename: 'dashboard.html'
-            sections:
-            - title: 'Pull Requests'
-              widgets:
-              - type: 'table'
-                title: 'New Pull Requests (This Week)'
-                issue_query: 'repo:beaubaby/terraform_gha_test is:open is:issue created:>{{ date("-7 days") }} sort:created-asc'
-          token: ${{ secrets.TOKEN }}
+    - name: Check out
+      uses: actions/checkout@v2
 
-      - name: Publish Documentation
-        run: |
-          git add .
-          git config user.name 'beaubaby'
-          git config user.email 'beau.ham4t@gmail.com'
-          git commit -m 'Documentation update' --allow-empty
-          git push origin main
+    - name: Install yq
+      run: |
+        sudo wget -LO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/3.3.0/yq_linux_amd64
+        sudo chmod +x /usr/local/bin/yq
+    - name: Generate
+      run: |
+        ./generate.sh -o samples/gcp.md -i samples/gcp-repos \
+          -i https://raw.githubusercontent.com/arjun024/actions-dashboard/master/samples/repos
+        if [ -z "$(git status -s -- samples/test.md)" ]; then
+          echo No changes to commit
+          exit 0
+        fi
+        git config user.email "beau.ham4t@gmail.com"
+        git config user.name "beaubaby"
+        git add samples/test.md
+        git commit -m "Update dashboard markdown"
+        git push origin main
