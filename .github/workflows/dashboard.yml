@@ -27,3 +27,16 @@ jobs:
         git add samples/test.md
         git commit -m "Update dashboard markdown"
         git push origin main
+    
+    - name: Datadog
+      if: failure()
+      uses: masci/datadog@v1
+      with:
+        api-key: ${{ secrets.DATADOG_API_KEY }}
+        events: |
+          - title: "Failed building Foo"
+            text: "Branch ${{ github.head_ref }} failed to build"
+            alert_type: "error"
+            host: ${{ secrets.repository_owner }}
+            tags:
+              - "project:private"
